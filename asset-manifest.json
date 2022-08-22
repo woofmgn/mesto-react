@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/woofmgn/mesto-react/static/css/main.5b303595.css",
+    "main.js": "/woofmgn/mesto-react/static/js/main.c15d91da.js",
+    "static/media/Inter-Medium.woff": "/woofmgn/mesto-react/static/media/Inter-Medium.9cfa0453864e31f2da39.woff",
+    "static/media/Inter-Black.woff": "/woofmgn/mesto-react/static/media/Inter-Black.6f1cb81ca755c15bcd21.woff",
+    "static/media/Inter-Regular.woff": "/woofmgn/mesto-react/static/media/Inter-Regular.0a4cd21af8e424595553.woff",
+    "static/media/Inter-Medium.woff2": "/woofmgn/mesto-react/static/media/Inter-Medium.1cbef54108939938d747.woff2",
+    "static/media/Inter-Black.woff2": "/woofmgn/mesto-react/static/media/Inter-Black.a4256d4861813b95c72c.woff2",
+    "static/media/Inter-Regular.woff2": "/woofmgn/mesto-react/static/media/Inter-Regular.2b6e02d93620c687d2f5.woff2",
+    "static/media/header-logo.svg": "/woofmgn/mesto-react/static/media/header-logo.bbe2a6eafac19c3d031c272c424875ca.svg",
+    "static/media/element--like-button.svg": "/woofmgn/mesto-react/static/media/element--like-button.1ad06e85f169668a1f36.svg",
+    "index.html": "/woofmgn/mesto-react/index.html",
+    "static/media/element--trash-button.svg": "/woofmgn/mesto-react/static/media/element--trash-button.ce3b64935accf9b8212e.svg",
+    "static/media/element--like-button_active.svg": "/woofmgn/mesto-react/static/media/element--like-button_active.35948469632d0421d697.svg",
+    "static/media/profile--edit-button.svg": "/woofmgn/mesto-react/static/media/profile--edit-button.6c7bf05444b9793fdf6e.svg",
+    "static/media/edit-pensil.svg": "/woofmgn/mesto-react/static/media/edit-pensil.ae1a976ddb506239e9f0.svg",
+    "static/media/popup--close-window.svg": "/woofmgn/mesto-react/static/media/popup--close-window.039f1f5203f653b4bacd.svg",
+    "static/media/profile--add-button.svg": "/woofmgn/mesto-react/static/media/profile--add-button.bed8c136e13907f5eefb.svg",
+    "main.5b303595.css.map": "/woofmgn/mesto-react/static/css/main.5b303595.css.map",
+    "main.c15d91da.js.map": "/woofmgn/mesto-react/static/js/main.c15d91da.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5b303595.css",
+    "static/js/main.c15d91da.js"
+  ]
+}
