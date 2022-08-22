@@ -1,9 +1,9 @@
-import photoProfile from '../images/profile-image.png'
 import api from '../utils/api';
 import {useEffect, useState} from 'react';
+import Card from './Card';
 
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
@@ -15,12 +15,6 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
         setUserName(userProfile.name);
         setUserDescription(userProfile.about);
         setUserAvatar(userProfile.avatar);
-        // const inverseArr = cards.reverse().map(card => {
-        //   return card;
-        // })
-        cards.map(card => {
-          return card;
-        })
         setCards(cards);
     })
     .catch((err) => {
@@ -30,7 +24,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
   useEffect(() => {
     dataPreload();
-  })
+  }, [])
 
   return (
     <>
@@ -52,17 +46,11 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
         <ul className="element">
           {cards.map(card => {
             return (
-              <li className="element__item">
-                <img className="element__image" src={card.link} alt="#"/>
-                <button className="element__trash-button" type="button"></button>
-                <div className="element__info">
-                  <h2 className="element__title">{card.name}</h2>
-                  <div className="element__like-container">
-                    <button className="element__like-button" type="button"></button>
-                    <p className="element__like-counter">{card.likes.length}</p>
-                  </div>
-                </div>
-              </li>
+              <Card 
+                card={card} 
+                key={card._id} 
+                onCardClick={onCardClick}
+              />
             )
           })}
          </ul>
