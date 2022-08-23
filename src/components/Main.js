@@ -1,6 +1,6 @@
 import Loader from './Loader';
 import api from '../utils/api';
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useState} from 'react';
 import Card from './Card';
 
 
@@ -27,7 +27,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .finally(() => setLoading(false))
   }
 
-  useEffect(() => {
+  // иппользован вместо useEffect, чтобы избежать дергания верстки при перезагрузке страницы
+  useLayoutEffect(() => {
     dataPreload();
   }, [])
 
