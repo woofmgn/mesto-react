@@ -1,74 +1,99 @@
-import Loader from './Loader';
-import api from '../utils/api';
-import {useLayoutEffect, useState} from 'react';
-import Card from './Card';
+import { useContext, useState } from "react";
+import { CurrentCardsContext } from "../contexts/CurrentCardsContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+import Card from "./Card";
+import Loader from "./Loader";
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
-  const [cards, setCards] = useState([]);
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+  // const [userName, setUserName] = useState("");
+  // const [userDescription, setUserDescription] = useState("");
+  // const [userAvatar, setUserAvatar] = useState("");
+  // const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const dataPreload = () => {
-    setLoading(true);
+  const currentUser = useContext(CurrentUserContext);
+  // console.log(currentUser.name);
 
-    Promise.all([api.getInitialCards(), api.getUserProfile()])
-    .then(([cards, userProfile]) => {
-        setUserName(userProfile.name);
-        setUserDescription(userProfile.about);
-        setUserAvatar(userProfile.avatar);
-        setCards(cards);
-    })
-    .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-    })
-    .finally(() => setLoading(false))
-  }
+  const cardList = useContext(CurrentCardsContext);
+  // console.log(cardList);
+
+  // const dataPreload = () => {
+  //   setLoading(true);
+
+  //   api
+  //     .getInitialCards()
+  //     .then((cards) => {
+  //       setCards(cards);
+  //       console.log(cards);
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Ошибка: ${err}`);
+  //     })
+  //     .finally(() => setLoading(false));
+
+  // Promise.all([api.getInitialCards(), api.getUserProfile()])
+  //   .then(([cards, userProfile]) => {
+  //     setUserName(userProfile.name);
+  //     setUserDescription(userProfile.about);
+  //     setUserAvatar(userProfile.avatar);
+  //     setCards(cards);
+  //   })
+  //   .catch((err) => {
+  //     console.log(`Ошибка: ${err}`);
+  //   })
+  //   .finally(() => setLoading(false));
+  // };
 
   // иппользован вместо useEffect, чтобы избежать дергания верстки при перезагрузке страницы
-  useLayoutEffect(() => {
-    dataPreload();
-  }, [])
+  // useEffect(() => {
+  //   dataPreload();
+  // }, []);
 
   return (
     <>
-      {
-        loading ? 
-          <Loader />
-          :
-          <main className="content">
-            <section className="profile">
-              <div className="profile__avatar-button" onClick={onEditAvatar}>
-                <img className="profile__image" src={userAvatar} alt="Фото профиля" />
+      {loading ? (
+        <Loader />
+      ) : (
+        <main className="content">
+          <section className="profile">
+            <div className="profile__avatar-button" onClick={onEditAvatar}>
+              <img
+                className="profile__image"
+                src={currentUser.avatar}
+                alt="Фото профиля"
+              />
+            </div>
+            <div className="profile__info">
+              <div className="profile__user">
+                <h1 className="profile__title">{currentUser.name}</h1>
+                <button
+                  className="profile__edit-button"
+                  type="button"
+                  onClick={onEditProfile}
+                ></button>
               </div>
-              <div className="profile__info">
-                <div className="profile__user">
-                  <h1 className="profile__title">{userName}</h1>
-                  <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
-                </div>
-                <p className="profile__subtitle">{userDescription}</p>
-              </div>
-              <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
-            </section>
-            <section className="elements">
-              <ul className="element">
-                {cards.map(card => {
-                  return (
-                    <Card 
-                      card={card} 
-                      key={card._id} 
-                      onCardClick={onCardClick}
-                    />
-                  )
-                })}
-                </ul>
-            </section>
-          </main>
-      }
+              <p className="profile__subtitle">{currentUser.about}</p>
+            </div>
+            <button
+              className="profile__add-button"
+              type="button"
+              onClick={onAddPlace}
+            ></button>
+          </section>
+          <section className="elements">
+            <ul className="element">
+              {cardList.map((card) => {
+                return (
+                  <Card card={card} key={card._id} onCardClick={onCardClick} />
+                );
+              })}
+            </ul>
+          </section>
+        </main>
+      )}
     </>
-  )
+  );
 }
 
 export default Main;
