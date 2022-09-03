@@ -54,18 +54,22 @@ class Api {
     }).then(this._getResponseData);
   }
 
-  addLikeCard(cardId) {
+  _addLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
     }).then(this._getResponseData);
   }
 
-  delLikeCard(cardId) {
+  _delLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._getResponseData);
+  }
+
+  changeLikeCardStatus(id, isLiked) {
+    return isLiked ? this._addLikeCard(id) : this._delLikeCard(id);
   }
 
   setUserAvatar(data) {

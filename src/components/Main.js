@@ -1,54 +1,42 @@
-import { useContext, useState } from "react";
-import { CurrentCardsContext } from "../contexts/CurrentCardsContext";
+import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import api from "../utils/api";
 
 import Card from "./Card";
 import Loader from "./Loader";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  // const [userName, setUserName] = useState("");
-  // const [userDescription, setUserDescription] = useState("");
-  // const [userAvatar, setUserAvatar] = useState("");
-  // const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const currentUser = useContext(CurrentUserContext);
-  // console.log(currentUser.name);
 
-  const cardList = useContext(CurrentCardsContext);
-  // console.log(cardList);
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-  // const dataPreload = () => {
-  //   setLoading(true);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  };
 
-  //   api
-  //     .getInitialCards()
-  //     .then((cards) => {
-  //       setCards(cards);
-  //       console.log(cards);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     })
-  //     .finally(() => setLoading(false));
+  const dataPreload = () => {
+    setLoading(true);
 
-  // Promise.all([api.getInitialCards(), api.getUserProfile()])
-  //   .then(([cards, userProfile]) => {
-  //     setUserName(userProfile.name);
-  //     setUserDescription(userProfile.about);
-  //     setUserAvatar(userProfile.avatar);
-  //     setCards(cards);
-  //   })
-  //   .catch((err) => {
-  //     console.log(`Ошибка: ${err}`);
-  //   })
-  //   .finally(() => setLoading(false));
-  // };
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => setLoading(false));
+  };
 
   // иппользован вместо useEffect, чтобы избежать дергания верстки при перезагрузке страницы
-  // useEffect(() => {
-  //   dataPreload();
-  // }, []);
+  useEffect(() => {
+    dataPreload();
+  }, []);
 
   return (
     <>
@@ -83,9 +71,14 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           </section>
           <section className="elements">
             <ul className="element">
-              {cardList.map((card) => {
+              {cards.map((card) => {
                 return (
-                  <Card card={card} key={card._id} onCardClick={onCardClick} />
+                  <Card
+                    card={card}
+                    key={card._id}
+                    onCardClick={onCardClick}
+                    onCardLike={handleCardLike}
+                  />
                 );
               })}
             </ul>
