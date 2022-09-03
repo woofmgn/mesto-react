@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/api";
-import {
-  default as EditAvatarPopup,
-  default as EditProfilePopup,
-} from "./EditProfilePopup";
+import { EditAvatarPopup } from "./EditAvatarPopup";
+import { EditProfilePopup } from "./EditProfilePopup";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -45,19 +43,30 @@ function App() {
   };
 
   const handleUpdateUser = (userInfo) => {
-    api.setUserProfile(userInfo).then((newUserInfo) => {
-      console.log(newUserInfo);
-      setCurrentUser(newUserInfo);
-      closeAllPopups();
-    });
+    api
+      .setUserProfile(userInfo)
+      .then((newUserInfo) => {
+        console.log(newUserInfo);
+        setCurrentUser(newUserInfo);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   };
 
   const handleUpdateAvatar = (avatarInfo) => {
-    api.setUserAvatar(avatarInfo).then((newAvatarInfo) => {
-      console.log(newAvatarInfo);
-      setCurrentUser(newAvatarInfo);
-      closeAllPopups();
-    });
+    api
+      .setUserAvatar(avatarInfo)
+      .then((newAvatarInfo) => {
+        console.log(newAvatarInfo);
+        setCurrentUser(newAvatarInfo);
+        closeAllPopups();
+        console.log(avatarInfo);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   };
 
   const closeAllPopups = () => {
@@ -84,6 +93,11 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
           <PopupWithForm
             title={"Новое место"}
@@ -121,11 +135,6 @@ function App() {
             title={"Вы уверены?"}
             name={"delete"}
             onClose={closeAllPopups}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
           />
         </CurrentUserContext.Provider>
       </div>

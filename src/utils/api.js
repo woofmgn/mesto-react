@@ -58,13 +58,6 @@ class Api {
     }).then(this._getResponseData);
   }
 
-  // delCard(cardId) {
-  //   return fetch(`${this._url}/cards/${cardId}`, {
-  //     method: "DELETE",
-  //     headers: this._headers,
-  //   }).then(this._getResponseData);
-  // }
-
   delCard(cardId, isOwner) {
     return isOwner
       ? fetch(`${this._url}/cards/${cardId}`, {
@@ -97,7 +90,8 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.link,
+        // avatar: data.link,
+        avatar: data,
       }),
     }).then(this._getResponseData);
   }

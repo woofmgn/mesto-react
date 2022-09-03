@@ -5,10 +5,10 @@ import api from "../utils/api";
 import Card from "./Card";
 import Loader from "./Loader";
 
+// function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const currentUser = useContext(CurrentUserContext);
 
   const handleCardLike = (card) => {
@@ -21,7 +21,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 
   const handleCardDelete = (card) => {
     console.log(card.owner);
-    // const isOwner = card.owner.some((i) => i._id === currentUser._id);
     const isOwner = card.owner._id === currentUser._id;
 
     api.delCard(card._id, isOwner).then((delCard) => {
@@ -38,7 +37,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .getInitialCards()
       .then((cards) => {
         setCards(cards);
-        // console.log(cards);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -58,12 +56,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       ) : (
         <main className="content">
           <section className="profile">
-            <div className="profile__avatar-button">
+            <div className="profile__avatar-button" onClick={onEditAvatar}>
               <img
                 className="profile__image"
                 src={currentUser.avatar}
                 alt="Фото профиля"
-                onClick={onEditAvatar}
               />
             </div>
             <div className="profile__info">
