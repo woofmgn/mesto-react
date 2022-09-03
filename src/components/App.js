@@ -52,6 +52,14 @@ function App() {
     });
   };
 
+  const handleUpdateAvatar = (avatarInfo) => {
+    api.setUserAvatar(avatarInfo).then((newAvatarInfo) => {
+      console.log(newAvatarInfo);
+      setCurrentUser(newAvatarInfo);
+      closeAllPopups();
+    });
+  };
+
   const closeAllPopups = () => {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -117,6 +125,7 @@ function App() {
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
         </CurrentUserContext.Provider>
       </div>

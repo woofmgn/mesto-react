@@ -58,11 +58,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       ) : (
         <main className="content">
           <section className="profile">
-            <div className="profile__avatar-button" onClick={onEditAvatar}>
+            <div className="profile__avatar-button">
               <img
                 className="profile__image"
                 src={currentUser.avatar}
                 alt="Фото профиля"
+                onClick={onEditAvatar}
               />
             </div>
             <div className="profile__info">
