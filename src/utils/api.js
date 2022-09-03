@@ -25,13 +25,24 @@ class Api {
     }).then(this._getResponseData);
   }
 
+  // setUserProfile(data) {
+  //   return fetch(`${this._url}/users/me`, {
+  //     method: "PATCH",
+  //     headers: this._headers,
+  //     body: JSON.stringify({
+  //       name: data.formName,
+  //       about: data.formJob,
+  //     }),
+  //   }).then(this._getResponseData);
+  // }
+
   setUserProfile(data) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.formName,
-        about: data.formJob,
+        name: data.name,
+        about: data.about,
       }),
     }).then(this._getResponseData);
   }

@@ -38,7 +38,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .getInitialCards()
       .then((cards) => {
         setCards(cards);
-        console.log(cards);
+        // console.log(cards);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
