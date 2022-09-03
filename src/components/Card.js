@@ -1,13 +1,17 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick, onCardLike }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const handleClick = () => {
     onCardClick(card);
   };
 
   const handleLikeClick = () => {
     onCardLike(card);
+  };
+
+  const handleDeleteClick = () => {
+    onCardDelete(card);
   };
 
   const userSettings = useContext(CurrentUserContext);
@@ -31,7 +35,11 @@ function Card({ card, onCardClick, onCardLike }) {
         alt={card.name}
         onClick={handleClick}
       />
-      <button className={cardDeleteButtonClassName} type="button"></button>
+      <button
+        className={cardDeleteButtonClassName}
+        type="button"
+        onClick={handleDeleteClick}
+      ></button>
       <div className="element__info">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__like-container">

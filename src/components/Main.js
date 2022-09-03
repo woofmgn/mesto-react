@@ -19,6 +19,18 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     });
   };
 
+  const handleCardDelete = (card) => {
+    console.log(card.owner);
+    // const isOwner = card.owner.some((i) => i._id === currentUser._id);
+    const isOwner = card.owner._id === currentUser._id;
+
+    api.delCard(card._id, isOwner).then((delCard) => {
+      setCards((state) =>
+        state.filter((c) => (c._id === card._id ? delCard : c))
+      );
+    });
+  };
+
   const dataPreload = () => {
     setLoading(true);
 
@@ -26,6 +38,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .getInitialCards()
       .then((cards) => {
         setCards(cards);
+        console.log(cards);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -78,6 +91,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
                     key={card._id}
                     onCardClick={onCardClick}
                     onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
                   />
                 );
               })}

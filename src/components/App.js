@@ -16,6 +16,7 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  // const [cards, setCards] = useState([]);
 
   const [currentUser, setCurrentUser] = useState(userSettings);
 
@@ -54,6 +55,7 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Header />
           <Main
+            // cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
