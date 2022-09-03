@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/api";
-import EditProfilePopup from "./EditProfilePopup";
+import {
+  default as EditAvatarPopup,
+  default as EditProfilePopup,
+} from "./EditProfilePopup";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -111,22 +114,10 @@ function App() {
             name={"delete"}
             onClose={closeAllPopups}
           />
-          <PopupWithForm
-            title={"Обновить аватар"}
-            name={"avatar"}
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__form-item popup__form-item_type_avatar"
-              id="input-avatar"
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span className="popup__input-error input-avatar-error"></span>
-          </PopupWithForm>
+          />
         </CurrentUserContext.Provider>
       </div>
     </div>

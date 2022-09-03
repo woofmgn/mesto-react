@@ -14,14 +14,14 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardDelete(card);
   };
 
-  const userSettings = useContext(CurrentUserContext);
-  const isOwn = card.owner._id === userSettings._id;
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
 
   const cardDeleteButtonClassName = `element__trash-button ${
     isOwn ? "element__trash-button_active" : ""
   }`;
 
-  const isLiked = card.likes.some((i) => i._id === userSettings._id);
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
   const cardLikeButtonClassName = `element__like-button ${
     isLiked ? "element__like-button_active" : ""
