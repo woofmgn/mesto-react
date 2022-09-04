@@ -25,17 +25,6 @@ class Api {
     }).then(this._getResponseData);
   }
 
-  // setUserProfile(data) {
-  //   return fetch(`${this._url}/users/me`, {
-  //     method: "PATCH",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name: data.formName,
-  //       about: data.formJob,
-  //     }),
-  //   }).then(this._getResponseData);
-  // }
-
   setUserProfile(data) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
@@ -90,7 +79,6 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        // avatar: data.link,
         avatar: data,
       }),
     }).then(this._getResponseData);
@@ -99,15 +87,3 @@ class Api {
 
 const api = new Api(settingsApi);
 export default api;
-
-// fetch('https://mesto.nomoreparties.co/v1/cohort-47', {
-//       method: 'POST',
-//       headers: {
-//       authorization: 'e4f550f7-85d7-46b0-9c73-72a0998caf95',
-//       'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         name: 'что-то',
-//         link: 'https://raspechatat-raskraski.ru/wp-content/uploads/2021/01/10.jpg'
-//       })
-//     })

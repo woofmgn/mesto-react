@@ -10,7 +10,6 @@ function PopupWithForm({ name, title, children, isOpen, onClose, onSubmit }) {
         ></button>
         <form
           className="popup__form popup__form_type_profile form"
-          // className={`popup__form popup__form_type_${name} form`}
           name={name}
           onSubmit={onSubmit}
           noValidate

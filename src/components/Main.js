@@ -1,53 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import api from "../utils/api";
-
 import Card from "./Card";
 import Loader from "./Loader";
 
-// function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(false);
+function Main({
+  cards,
+  loading,
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  handleCardDelete,
+  handleCardLike,
+}) {
   const currentUser = useContext(CurrentUserContext);
-
-  const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  };
-
-  const handleCardDelete = (card) => {
-    console.log(card.owner);
-    const isOwner = card.owner._id === currentUser._id;
-
-    api.delCard(card._id, isOwner).then((delCard) => {
-      setCards((state) =>
-        state.filter((c) => (c._id === card._id ? delCard : c))
-      );
-    });
-  };
-
-  const dataPreload = () => {
-    setLoading(true);
-
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-      .finally(() => setLoading(false));
-  };
-
-  // иппользован вместо useEffect, чтобы избежать дергания верстки при перезагрузке страницы
-  useEffect(() => {
-    dataPreload();
-  }, []);
 
   return (
     <>
