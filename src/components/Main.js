@@ -36,7 +36,7 @@ function Main({
                   className="profile__edit-button"
                   type="button"
                   onClick={onEditProfile}
-                ></button>
+                />
               </div>
               <p className="profile__subtitle">{currentUser.about}</p>
             </div>
@@ -44,7 +44,7 @@ function Main({
               className="profile__add-button"
               type="button"
               onClick={onAddPlace}
-            ></button>
+            />
           </section>
           <section className="elements">
             <ul className="element">
