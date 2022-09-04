@@ -18,7 +18,6 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [currentUser, setCurrentUser] = useState({});
 
   const dataPreload = () => {
@@ -68,25 +67,6 @@ function App() {
     setSelectedCard({});
   };
 
-  const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  };
-
-  const handleCardDelete = (card) => {
-    console.log(card.owner);
-    const isOwner = card.owner._id === currentUser._id;
-
-    api.delCard(card._id, isOwner).then((delCard) => {
-      setCards((state) =>
-        state.filter((c) => (c._id === card._id ? delCard : c))
-      );
-    });
-  };
-
   const handleUpdateUser = (userInfo) => {
     api
       .setUserProfile(userInfo)
@@ -118,12 +98,28 @@ function App() {
     api
       .addNewCard(cardTitle, cardLink)
       .then((newCard) => {
-        setCards([newCard], ...cards);
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
+  };
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  };
+
+  const handleCardDelete = (card) => {
+    const isOwner = card.owner._id === currentUser._id;
+
+    api.delCard(card._id, isOwner).then(() => {
+      setCards((state) => state.filter((c) => card._id !== c._id));
+    });
   };
 
   return (
