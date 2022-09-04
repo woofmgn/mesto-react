@@ -23,7 +23,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   const handleDeleteClick = () => {
     onCardDelete(card);
-    // console.log(card);
   };
 
   return (
@@ -38,7 +37,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         className={cardDeleteButtonClassName}
         type="button"
         onClick={handleDeleteClick}
-      ></button>
+      />
       <div className="element__info">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__like-container">
@@ -46,7 +45,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             className={cardLikeButtonClassName}
             type="button"
             onClick={handleLikeClick}
-          ></button>
+          />
           <p className="element__like-counter">{card.likes.length}</p>
         </div>
       </div>

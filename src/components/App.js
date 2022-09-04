@@ -39,7 +39,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    api.getUserProfile().then((userProfile) => setCurrentUser(userProfile));
+    api
+      .getUserProfile()
+      .then((userProfile) => setCurrentUser(userProfile))
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }, []);
 
   const handleEditAvatarClick = () => {
@@ -106,17 +111,29 @@ function App() {
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   };
 
   const handleCardDelete = (card) => {
     const isOwner = card.owner._id === currentUser._id;
 
-    api.delCard(card._id, isOwner).then(() => {
-      setCards((state) => state.filter((c) => card._id !== c._id));
-    });
+    api
+      .delCard(card._id, isOwner)
+      .then(() => {
+        setCards((state) => state.filter((c) => card._id !== c._id));
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   };
 
   return (
