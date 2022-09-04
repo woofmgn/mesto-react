@@ -2,12 +2,14 @@ import { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [newCardLink, setNewCardLink] = useState([]);
-  const [newCardTitle, setNewCardTitle] = useState([]);
+  const [newCardLink, setNewCardLink] = useState("");
+  const [newCardTitle, setNewCardTitle] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onAddPlace(newCardTitle, newCardLink);
+    setNewCardLink("");
+    setNewCardTitle("");
   };
 
   const handleChangeLink = (evt) => {

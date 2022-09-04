@@ -71,7 +71,6 @@ function App() {
     api
       .setUserProfile(userInfo)
       .then((newUserInfo) => {
-        console.log(newUserInfo);
         setCurrentUser(newUserInfo);
         closeAllPopups();
       })
@@ -84,10 +83,8 @@ function App() {
     api
       .setUserAvatar(avatarInfo)
       .then((newAvatarInfo) => {
-        console.log(newAvatarInfo);
         setCurrentUser(newAvatarInfo);
         closeAllPopups();
-        console.log(avatarInfo);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
