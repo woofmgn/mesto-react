@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/api";
-import { AddPlacePopup } from "./AddPlacePopup";
-import { EditAvatarPopup } from "./EditAvatarPopup";
-import { EditProfilePopup } from "./EditProfilePopup";
+import AddPlacePopup from "./AddPlacePopup";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import EditProfilePopup from "./EditProfilePopup";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
 import Main from "./Main";
-import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isDeleteCardPopup, setDeleteCardPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const dataPreload = () => {
     setLoading(true);
@@ -64,6 +66,10 @@ function App() {
     setImagePopupOpen(!isImagePopupOpen);
   };
 
+  const handleDeleteCardClick = () => {
+    setDeleteCardPopup(!isDeleteCardPopup);
+  };
+
   const closeAllPopups = () => {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -73,6 +79,7 @@ function App() {
   };
 
   const handleUpdateUser = (userInfo) => {
+    setButtonLoading(true);
     api
       .setUserProfile(userInfo)
       .then((newUserInfo) => {
@@ -81,10 +88,12 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => setButtonLoading(false));
   };
 
   const handleUpdateAvatar = (avatarInfo) => {
+    setButtonLoading(true);
     api
       .setUserAvatar(avatarInfo)
       .then((newAvatarInfo) => {
@@ -93,10 +102,12 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => setButtonLoading(false));
   };
 
   const handleAddPlaceSubmit = (cardTitle, cardLink) => {
+    setButtonLoading(true);
     api
       .addNewCard(cardTitle, cardLink)
       .then((newCard) => {
@@ -105,7 +116,8 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => setButtonLoading(false));
   };
 
   const handleCardLike = (card) => {
@@ -148,6 +160,7 @@ function App() {
             onCardClick={handleCardClick}
             handleCardLike={handleCardLike}
             handleCardDelete={handleCardDelete}
+            handleCardDeleteConfirm={handleDeleteCardClick}
             cards={cards}
             loading={loading}
           />
@@ -156,25 +169,27 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            buttonLoading={buttonLoading}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            buttonLoading={buttonLoading}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            buttonLoading={buttonLoading}
           />
           <ImagePopup
             card={selectedCard}
             isOpen={isImagePopupOpen}
             onClose={closeAllPopups}
           />
-          <PopupWithForm
-            title={"Вы уверены?"}
-            name={"delete"}
+          <ConfirmDeletePopup
+            isOpen={isDeleteCardPopup}
             onClose={closeAllPopups}
           />
         </CurrentUserContext.Provider>

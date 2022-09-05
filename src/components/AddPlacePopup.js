@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, buttonLoading }) {
   const [newCardLink, setNewCardLink] = useState("");
   const [newCardTitle, setNewCardTitle] = useState("");
 
@@ -32,6 +32,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonLoading={buttonLoading}
     >
       <input
         className="popup__form-item popup__form-item_type_place"
@@ -61,4 +62,4 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   );
 }
 
-export { AddPlacePopup };
+export default AddPlacePopup;

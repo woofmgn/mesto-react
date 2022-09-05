@@ -1,4 +1,12 @@
-function PopupWithForm({ name, title, children, isOpen, onClose, onSubmit }) {
+function PopupWithForm({
+  name,
+  title,
+  children,
+  isOpen,
+  onClose,
+  onSubmit,
+  buttonLoading,
+}) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
@@ -16,8 +24,13 @@ function PopupWithForm({ name, title, children, isOpen, onClose, onSubmit }) {
         >
           <fieldset className="popup__input-container">
             {children}
-            <button className="popup__form-button" type="submit">
-              Сохранить
+            <button
+              className={`popup__form-button ${
+                buttonLoading ? "popup__form-button_inactive" : ""
+              }`}
+              type="submit"
+            >
+              {buttonLoading ? "Сохранение" : "Сохранить"}
             </button>
           </fieldset>
         </form>

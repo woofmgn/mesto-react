@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState("");
@@ -36,6 +36,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonLoading={buttonLoading}
     >
       <input
         className="popup__form-item popup__form-item_type_name"
@@ -66,4 +67,4 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     </PopupWithForm>
   );
 }
-export { EditProfilePopup };
+export default EditProfilePopup;
