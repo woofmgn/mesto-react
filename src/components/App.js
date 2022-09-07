@@ -66,7 +66,9 @@ function App() {
     setImagePopupOpen(!isImagePopupOpen);
   };
 
-  const handleDeleteCardClick = () => {
+  // получаем стейт удаляемой карточки
+  const handleSelectDeleteCardClick = (card) => {
+    setSelectedCard(card);
     setDeleteCardPopup(!isDeleteCardPopup);
   };
 
@@ -75,6 +77,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
+    setDeleteCardPopup(false);
     setSelectedCard({});
   };
 
@@ -136,16 +139,19 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
+    setButtonLoading(true);
     const isOwner = card.owner._id === currentUser._id;
 
     api
       .delCard(card._id, isOwner)
       .then(() => {
         setCards((state) => state.filter((c) => card._id !== c._id));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => setButtonLoading(false));
   };
 
   return (
@@ -159,8 +165,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             handleCardLike={handleCardLike}
-            handleCardDelete={handleCardDelete}
-            handleCardDeleteConfirm={handleDeleteCardClick}
+            handleCardDelete={handleSelectDeleteCardClick}
             cards={cards}
             loading={loading}
           />
@@ -191,6 +196,10 @@ function App() {
           <ConfirmDeletePopup
             isOpen={isDeleteCardPopup}
             onClose={closeAllPopups}
+            selectedCard={selectedCard}
+            setSelectedCard={setSelectedCard}
+            handleCardDeleteConfirm={handleCardDelete}
+            buttonLoading={buttonLoading}
           />
         </CurrentUserContext.Provider>
       </div>

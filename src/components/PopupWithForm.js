@@ -1,6 +1,8 @@
 function PopupWithForm({
   name,
   title,
+  buttonText,
+  buttonTextLoader,
   children,
   isOpen,
   onClose,
@@ -30,7 +32,7 @@ function PopupWithForm({
               }`}
               type="submit"
             >
-              {buttonLoading ? "Сохранение" : "Сохранить"}
+              {buttonLoading ? `${buttonTextLoader}` : `${buttonText}`}
             </button>
           </fieldset>
         </form>
