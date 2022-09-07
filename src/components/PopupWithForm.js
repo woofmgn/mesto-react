@@ -8,6 +8,7 @@ function PopupWithForm({
   onClose,
   onSubmit,
   buttonLoading,
+  isValid,
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -28,9 +29,10 @@ function PopupWithForm({
             {children}
             <button
               className={`popup__form-button ${
-                buttonLoading ? "popup__form-button_inactive" : ""
+                buttonLoading || !isValid ? "popup__form-button_inactive" : ""
               }`}
               type="submit"
+              disabled={!isValid}
             >
               {buttonLoading ? `${buttonTextLoader}` : `${buttonText}`}
             </button>
