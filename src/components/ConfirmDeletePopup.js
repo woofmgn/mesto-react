@@ -8,6 +8,8 @@ function ConfirmDeletePopup({
   handleCardDeleteConfirm,
   buttonLoading,
 }) {
+  const isValid = true;
+
   const handleDeleteClick = (evt) => {
     evt.preventDefault();
     handleCardDeleteConfirm(selectedCard);
@@ -23,6 +25,7 @@ function ConfirmDeletePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleDeleteClick}
+      isValid={isValid}
       buttonLoading={buttonLoading}
     />
   );
