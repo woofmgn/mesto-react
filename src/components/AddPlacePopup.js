@@ -9,19 +9,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, buttonLoading }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation({ newCardTitle, newCardLink });
 
-  // const handleSubmit = (evt) => {
-  //   evt.preventDefault();
-  //   onAddPlace(newCardTitle, newCardLink);
-  // };
-
-  // const handleChangeLink = (evt) => {
-  //   setNewCardLink(evt.target.value);
-  // };
-
-  // const handleChangeTitle = (evt) => {
-  //   setNewCardTitle(evt.target.value);
-  // };
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onAddPlace(values.title, values.link);
