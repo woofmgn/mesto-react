@@ -13,7 +13,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonLoading }) {
     if (!isOpen) {
       resetForm();
     }
-    // }, [currentUser, isOpen]);
   }, [setValues, resetForm, currentUser, isOpen]);
 
   const handleSubmit = (evt) => {
